@@ -13,27 +13,12 @@ from time import time
 from mdl import corr_meta_learning
 from sklearn.metrics import roc_auc_score
 from torch.utils.data import DataLoader, Subset
-
 from gen_dataset.avazu import AvazuDataset
-from gen_dataset.criteo import CriteoDataset
-from gen_dataset.mltag import MLDataset
-from gen_dataset.frappe import FrappeDataset
-from gen_dataset.kdd2012 import KDD2012Dataset, split_index
 
 
 def get_dataset(path):
-    if 'criteo' in path:
-        return CriteoDataset(path)
-    elif 'avazu' in path:
+    if 'avazu' in path:
         return AvazuDataset(path)
-    elif 'frappe' in path:
-        return FrappeDataset(path)
-    elif 'adult' in path:
-        return AdultDataset(path)
-    elif 'mltag' in path:
-        return MLDataset(path)
-    elif 'kdd2012' in path:
-        return KDD2012Dataset(path)
     else:
         raise ValueError('unknown dataset name')
 
@@ -71,17 +56,14 @@ def test(model, data_loader, criterion, device):
 def main(args):
     device = torch.device(args.device)
     dataset = get_dataset(args.dataset_path)
-    if "kdd2012" in args.dataset_path: #for getting the same dataset split with another paper
-        train_idx,val_idx,test_idx = split_index(len(dataset))
-    else:
-        train_length = int(len(dataset) * 0.8)
-        valid_length = int(len(dataset) * 0.1)
-        all_index = list(range(len(dataset)))      
-        random.seed(6)
-        random.shuffle(all_index)
-        train_idx = all_index[:train_length]
-        val_idx = all_index[train_length:(train_length + valid_length)]
-        test_idx = all_index[(train_length + valid_length):]
+    train_length = int(len(dataset) * 0.8)
+    valid_length = int(len(dataset) * 0.1)
+    all_index = list(range(len(dataset)))      
+    random.seed(6)
+    random.shuffle(all_index)
+    train_idx = all_index[:train_length]
+    val_idx = all_index[train_length:(train_length + valid_length)]
+    test_idx = all_index[(train_length + valid_length):]
     train_dataset = Subset(dataset, train_idx)
     valid_dataset = Subset(dataset, val_idx)
     test_dataset = Subset(dataset, test_idx)
