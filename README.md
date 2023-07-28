@@ -17,12 +17,13 @@ python run_mdl.py   --dataset-path <path_to_data> --inner-step 4 --inner-step-si
 ## Citation
 If you find this repository helpful, please consider to cite the following paper:
 ```
-@misc{li2023exploiting,
-      title={Exploiting Field Dependencies for Learning on Categorical Data}, 
-      author={Zhibin Li and Piotr Koniusz and Lu Zhang and Daniel Edward Pagendam and Peyman Moghadam},
-      year={2023},
-      eprint={2307.09321},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
-}
+@ARTICLE{10192074,
+  author={Li, Zhibin and Koniusz, Piotr and Zhang, Lu and Pagendam, Daniel Edward and Moghadam, Peyman},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
+  title={Exploiting Field Dependencies for Learning on Categorical Data}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1-14},
+  doi={10.1109/TPAMI.2023.3298028}}
 ```
