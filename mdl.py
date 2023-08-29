@@ -103,7 +103,7 @@ class sparse_proj(torch.nn.Module):
         self.register_buffer('id_range', torch.arange(1,num_fields+1) )
 
     def forward(self,z): 
-        z_s, _ = torch.sort(z,dim=1,descending=True)
+        z_s = torch.sort(z,dim=1,descending=True).values
         z = z - z_s[:,[0]]
         z_s = z_s - z_s[:,[0]]
         z_s_cumsum = torch.cumsum(z_s, dim=1)
